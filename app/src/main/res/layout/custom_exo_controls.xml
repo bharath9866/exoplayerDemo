@@ -27,7 +27,8 @@
                 style="@style/ExoMediaButton.Rewind"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:tint="@android:color/white"                android:tintMode="src_in" />
+                android:tint="@android:color/white"
+                android:tintMode="src_in" />
 
 
             <ImageButton
@@ -35,14 +36,14 @@
                 style="@style/ExoMediaButton.Play"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:tint="@android:color/white"/>
+                android:tint="@android:color/white" />
 
             <ImageButton
                 android:id="@id/exo_pause"
                 style="@style/ExoMediaButton.Pause"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:tint="@android:color/white"/>
+                android:tint="@android:color/white" />
 
             <ImageButton
                 android:id="@id/exo_ffwd"

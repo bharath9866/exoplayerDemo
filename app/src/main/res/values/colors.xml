@@ -3,4 +3,104 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="transperent">#00000000</color>
+    <color name="primary_color">#3C8DCB</color>
+    <color name="video_page_background_color">#FAFCFF</color>
+    <color name="text_gray_questions">#263643</color>
+    <color name="text_black">#1E2A36</color>
+    <color name="text_color_dark_blue">#00354E</color>
+    <color name="gray">#a6a7a9</color>
+    <color name="white_rating_bg">#F6F5F5</color>
+    <color name="circle_color">#F3F2F2</color>
+    <color name="color_black">#000000</color>
+    <color name="underline_color_grey">#C6CFD6</color>
+    <color name="text_gray_text">#556575</color>
+    <color name="text_color_subject">#324452</color>
+    <color name="blur_bg_color">#3C8DCB</color>
+    <color name="yellow">#FBD323</color>
+    <color name="stroke_color_blue">#5BB2F9</color>
+    <color name="video_active_bg">#D8EDFE</color>
+    <color name="video_in_active_bg">#FCFCFC</color>
+
+    <!-- Practice Question -->
+    <color name="correct_option_border">#00BA88</color>
+    <color name="wrong_option_border">#B7295A</color>
+    <color name="option_border">#D9DBE9</color>
+
+    <color name="correct_option_background">#DFFFF6</color>
+    <color name="wrong_option_background">#FFDFED</color>
+    <color name="option_background">#FCFCFC</color>
+
+    <color name="correct_option_text">#00966D</color>
+    <color name="wrong_option_text">#A40038</color>
+    <color name="option_text">#4E4B66</color>
+
+    <color name="correct_option_radio_icon">#00BA88</color>
+    <color name="wrong_option_radio_icon">#B7295A</color>
+    <color name="option_radio_icon">#6E7191</color>
+    <color name="trans">#40000000</color>
+    <color name="interactive_activities">#BE5E22</color>
+    <color name="divider_grey">#FFFFFF</color>
+
+    <!-- Exercise Colors -->
+    <color name="exercise_card_background_color">#6E7191</color>
+    <color name="accuracy_text_color">#946200</color>
+    <color name="divider_color">#D9DBE9</color>
+    <color name="accuracy_q_card_background_color">#FFF7D4</color>
+    <color name="view_solution_color_in_exercise">#3C8DCB</color>
+    <color name="exercise_bottom_button_color">#3C8DCB</color>
+    <color name="exercise_background_color">#4E4B66</color>
+    <color name="back_color">#96C2E5</color>
+    <color name="green">#46993E</color>
+
+    <color name="red">#E34851</color>
+
+    <color name="sub_text_color">#14142B</color>
+
+    <color name="sb_stroke_color_default">#000000</color>
+    <color name="sb_text_color_default">#00354E</color>
+    <color name="stop_bg">#DFFFF6</color>
+    <color name="sb_swipe_bg_color_default">#9FD6FF</color>
+    <color name="sb_thumb_button_color_default">#3C8DCB</color>
+    <color name="stop_sb_swipe_bg_color_default">#DFFFF6</color>
+    <color name="stop_sb_thumb_button_color_default">#00BA88</color>
+    <color name="sb_text_color_redeem">#106446</color>
+
+    <color name="goal_setting_bg">#F7F7FC</color>
+    <color name="white_milk">#D9D9D9</color>
+    <color name="light_text">#A0A3BD</color>
+
+    <color name="ayp_red">#F44336</color>
+    <color name="ayp_item_selected">#90FFFFFF</color>
+    <color name="ayp_drop_shadow">#66000000</color>
+
+    <color name="ayp_menu_icons">#757575</color>
+    <color name="ayp_menu_text">#222222</color>
+
+    <color name="enable_button_text_color">#3C8DCB</color>
+    <color name="disable_button_text_color">#803C8DCB</color>
+    <color name="disable_button_color">#E0E0E0</color>
+
+    <color name="phycolor">#FD8F4B</color>
+    <color name="mathcolor">#48B7DB</color>
+    <color name="chemcolor">#FE6980</color>
+    <color name="biocolor">#66B648</color>
+    <color name="zoocolor">#D68861</color>
+    <color name="botanycolor">#3BBF90</color>
+
+
+    <color name="phy_text_color">#BE5E22</color>
+    <color name="chem_text_color">#BE3F54</color>
+    <color name="math_text_color">#136884</color>
+    <color name="bio_text_color">#578A43</color>
+    <color name="zoo_text_color">#663D29</color>
+    <color name="botany_text_color">#106446</color>
 </resources>

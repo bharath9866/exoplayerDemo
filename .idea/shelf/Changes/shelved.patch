@@ -1,0 +1,137 @@
+Index: app/src/main/java/com/prateek/exoplayerdemo/MainActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.prateek.exoplayerdemo\r\n\r\nimport android.os.Bundle\r\nimport android.widget.PopupMenu\r\nimport androidx.appcompat.app.AppCompatActivity\r\nimport com.google.android.exoplayer2.ExoPlayer\r\nimport com.google.android.exoplayer2.MediaItem\r\nimport com.google.android.exoplayer2.Player\r\nimport com.google.android.exoplayer2.TracksInfo\r\nimport com.google.android.exoplayer2.source.hls.HlsMediaSource\r\nimport com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection\r\nimport com.google.android.exoplayer2.trackselection.DefaultTrackSelector\r\nimport com.google.android.exoplayer2.trackselection.TrackSelectionOverrides\r\nimport com.google.android.exoplayer2.upstream.DefaultHttpDataSource\r\nimport com.google.android.exoplayer2.util.Util\r\nimport kotlinx.android.synthetic.main.activity_main.*\r\n\r\nclass MainActivity : AppCompatActivity(), Player.Listener {\r\n    private var qualityPopUp: PopupMenu?=null\r\n    private var player: ExoPlayer? = null\r\n    private var playbackPosition = 0L\r\n    private var playWhenReady = true\r\n    private var trackSelector:DefaultTrackSelector?=null\r\n    var qualityList = ArrayList<Pair<String, TrackSelectionOverrides.Builder>>()\r\n\r\n    override fun onCreate(savedInstanceState: Bundle?) {\r\n        super.onCreate(savedInstanceState)\r\n        setContentView(R.layout.activity_main)\r\n        initListener()\r\n    }\r\n\r\n    private fun initListener() {\r\n        exo_quality.setOnClickListener {\r\n            qualityPopUp?.show()\r\n        }\r\n    }\r\n\r\n\r\n    private fun initPlayer() {\r\n        trackSelector = DefaultTrackSelector(/* context= */this, AdaptiveTrackSelection.Factory())\r\n        player = ExoPlayer.Builder(this)\r\n            .setTrackSelector(trackSelector!!)\r\n            .build()\r\n        player?.playWhenReady = true\r\n        player_exo.player = player\r\n        val defaultHttpDataSourceFactory = DefaultHttpDataSource.Factory()\r\n        val mediaItem = MediaItem.fromUri(\"https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8\")\r\n        val mediaSource =\r\n            HlsMediaSource.Factory(defaultHttpDataSourceFactory).createMediaSource(mediaItem)\r\n        player?.setMediaSource(mediaSource)\r\n        player?.seekTo(playbackPosition)\r\n        player?.playWhenReady = playWhenReady\r\n        player?.addListener(this)\r\n        player?.prepare()\r\n\r\n    }\r\n\r\n    private fun setUpQualityList() {\r\n        qualityPopUp = PopupMenu(this, exo_quality)\r\n        qualityList.let {\r\n            for ((i, videoQuality) in it.withIndex()) {\r\n                qualityPopUp?.menu?.add(0, i, 0, videoQuality.first)\r\n            }\r\n        }\r\n        qualityPopUp?.setOnMenuItemClickListener { menuItem ->\r\n            qualityList[menuItem.itemId].let {\r\n                trackSelector!!.setParameters(\r\n                    trackSelector!!.getParameters()\r\n                        .buildUpon()\r\n                        .setTrackSelectionOverrides(it.second.build())\r\n                        .setTunnelingEnabled(true)\r\n                        .build())\r\n            }\r\n            true\r\n        }\r\n    }\r\n\r\n    override fun onTracksInfoChanged(tracksInfo: TracksInfo) {\r\n        println(\"TRACK CHANGED\")\r\n        println(tracksInfo.trackGroupInfos)\r\n    }\r\n\r\n    override fun onPlaybackStateChanged(playbackState: Int) {\r\n        if (playbackState==Player.STATE_READY){\r\n             trackSelector?.generateQualityList()?.let {\r\n                 qualityList = it\r\n                 setUpQualityList()\r\n             }\r\n        }\r\n    }\r\n\r\n    private fun releasePlayer() {\r\n        player?.let {\r\n            playbackPosition = it.currentPosition\r\n            playWhenReady = it.playWhenReady\r\n            it.release()\r\n            player = null\r\n        }\r\n    }\r\n\r\n\r\n    override fun onStart() {\r\n        super.onStart()\r\n        if (Util.SDK_INT >= 24) {\r\n            initPlayer()\r\n        }\r\n    }\r\n\r\n    override fun onStop() {\r\n        super.onStop()\r\n        if (Util.SDK_INT >= 24) {\r\n            releasePlayer()\r\n        }\r\n    }\r\n\r\n    override fun onResume() {\r\n        super.onResume()\r\n        if (Util.SDK_INT < 24) {\r\n            initPlayer()\r\n        }\r\n    }\r\n    override fun onPause() {\r\n        super.onPause()\r\n        if (Util.SDK_INT < 24) {\r\n            releasePlayer()\r\n        }\r\n    }\r\n\r\n\r\n    override fun onDestroy() {\r\n        super.onDestroy()\r\n        releasePlayer()\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/prateek/exoplayerdemo/MainActivity.kt b/app/src/main/java/com/prateek/exoplayerdemo/MainActivity.kt
+--- a/app/src/main/java/com/prateek/exoplayerdemo/MainActivity.kt	(revision 60372094e4ab4403177a08e0aed17bde3500a336)
++++ b/app/src/main/java/com/prateek/exoplayerdemo/MainActivity.kt	(date 1697131125652)
+@@ -1,27 +1,34 @@
+ package com.prateek.exoplayerdemo
+ 
++import android.net.Uri
+ import android.os.Bundle
++import android.util.Log
++import android.view.View
+ import android.widget.PopupMenu
+ import androidx.appcompat.app.AppCompatActivity
+ import com.google.android.exoplayer2.ExoPlayer
+ import com.google.android.exoplayer2.MediaItem
+ import com.google.android.exoplayer2.Player
+ import com.google.android.exoplayer2.TracksInfo
+-import com.google.android.exoplayer2.source.hls.HlsMediaSource
++import com.google.android.exoplayer2.source.ProgressiveMediaSource
+ import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection
+ import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
+ import com.google.android.exoplayer2.trackselection.TrackSelectionOverrides
+-import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
++import com.google.android.exoplayer2.upstream.AssetDataSource
++import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
+ import com.google.android.exoplayer2.util.Util
++import com.google.gson.Gson
+ import kotlinx.android.synthetic.main.activity_main.*
+ 
+ class MainActivity : AppCompatActivity(), Player.Listener {
+     private var qualityPopUp: PopupMenu?=null
+     private var player: ExoPlayer? = null
++    private var mediaItemIndex = 0
+     private var playbackPosition = 0L
+     private var playWhenReady = true
+-    private var trackSelector:DefaultTrackSelector?=null
+-    var qualityList = ArrayList<Pair<String, TrackSelectionOverrides.Builder>>()
++    private lateinit var trackSelector:DefaultTrackSelector
++    private var qualityList = ArrayList<Pair<String, TrackSelectionOverrides.Builder>>()
++
+ 
+     override fun onCreate(savedInstanceState: Bundle?) {
+         super.onCreate(savedInstanceState)
+@@ -37,17 +44,22 @@
+ 
+ 
+     private fun initPlayer() {
+-        trackSelector = DefaultTrackSelector(/* context= */this, AdaptiveTrackSelection.Factory())
+-        player = ExoPlayer.Builder(this)
+-            .setTrackSelector(trackSelector!!)
+-            .build()
++
++        // Create a TrackSelector
++        trackSelector = DefaultTrackSelector(this, AdaptiveTrackSelection.Factory())
++
++        // Create an ExoPlayer instance
++        player = ExoPlayer.Builder(this).setTrackSelector(trackSelector).build()
++
++        // Set the preferred quality to low
++        val parameters = trackSelector.buildUponParameters()
++        parameters.setMinVideoBitrate(1)
++        trackSelector.setParameters(parameters)
++
+         player?.playWhenReady = true
+         player_exo.player = player
+-        val defaultHttpDataSourceFactory = DefaultHttpDataSource.Factory()
+-        val mediaItem = MediaItem.fromUri("https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8")
+-        val mediaSource =
+-            HlsMediaSource.Factory(defaultHttpDataSourceFactory).createMediaSource(mediaItem)
+-        player?.setMediaSource(mediaSource)
++        val mediaItemMP4 = MediaItem.fromUri(WithTokenURL)
++        player?.setMediaItems(listOf(mediaItemMP4), mediaItemIndex, playbackPosition)
+         player?.seekTo(playbackPosition)
+         player?.playWhenReady = playWhenReady
+         player?.addListener(this)
+@@ -64,20 +76,18 @@
+         }
+         qualityPopUp?.setOnMenuItemClickListener { menuItem ->
+             qualityList[menuItem.itemId].let {
+-                trackSelector!!.setParameters(
+-                    trackSelector!!.getParameters()
+-                        .buildUpon()
+-                        .setTrackSelectionOverrides(it.second.build())
+-                        .setTunnelingEnabled(true)
+-                        .build())
++                trackSelector!!.parameters = trackSelector!!.parameters
++                    .buildUpon()
++                    .setTrackSelectionOverrides(it.second.build())
++                    .setTunnelingEnabled(true)
++                    .build()
+             }
+             true
+         }
+     }
+ 
+     override fun onTracksInfoChanged(tracksInfo: TracksInfo) {
+-        println("TRACK CHANGED")
+-        println(tracksInfo.trackGroupInfos)
++        Log.d("TRACK_CHANGED", Gson().toJson(tracksInfo.trackGroupInfos))
+     }
+ 
+     override fun onPlaybackStateChanged(playbackState: Int) {
+@@ -131,4 +141,25 @@
+         super.onDestroy()
+         releasePlayer()
+     }
+-}
+\ No newline at end of file
++
++    private fun hideSystemUI() {
++        // Hide the system UI for a full-screen experience (for landscape mode).
++        val decorView = window.decorView
++        decorView.systemUiVisibility = (
++                View.SYSTEM_UI_FLAG_IMMERSIVE
++                        or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
++                        or View.SYSTEM_UI_FLAG_FULLSCREEN
++                        or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
++                        or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
++                        or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
++                )
++    }
++
++    private fun showSystemUI() {
++        // Show the system UI for portrait mode.
++        val decorView = window.decorView
++        decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_VISIBLE
++    }
++}
++
++const val WithTokenURL = "https://il-cms-assets.s3.ap-south-1.amazonaws.com/media/1643292596381.mp4?X-Amz-Security-Token=IQoJb3JpZ2luX2VjEAAaCmFwLXNvdXRoLTEiSDBGAiEAytCb4DcJfaP9wUieSwvSwe976HjKX088YsfqOgOf7CYCIQCfdSxNRLS4vcwuwVElG691vj%2BL%2BdoAhwkKmkIKSAV%2BNSq%2BBQgZEAEaDDcyNTQ1Njc4MDI3NCIMnHptK3nmFF7ynyAgKpsFYX0b4wyoHqO7vxF65Md7TSQ2Bg7VpJfX1zdWR5DSxtOyTSB5dFFNoLOANYvjj%2Fqay8%2FYlHmGa2bPDxO1xWsAUFz8%2BSF6mNM2MeoHINvk7mDFnOq9vqNfiH%2BpcNcmIbmn0hfVzXA62H56KR3hZ%2FT2wse4X%2BjauCB%2FMGAQsbbf9d%2BXw%2B5YCQiaJor2t1whj2daE5qGWFW%2BKCyOXks6%2BK%2BXubvpyWw2u9UjChKkgTHr4%2B4DQrkFRRfGUFR7wPptFOf7mVOP1%2Fx1awQwvmwE%2FM%2FH0PyBbyxGXk3VzCPTIFEHdd%2FFhcezBhH%2FaxWTVNgn8p5pyHk6sSP4CwpBlI6IbMyWdTPYrkev02WSvfVgelOZUznphBbwQk3BS25JjCJ8m74Nt6Jruua57wPWmuqxmjj1mMT3nOZ7xUfhZsTnihpV4PC1%2B%2BZ3X96P5uEqW%2BuSJDOeMT7Oyu2A6u7DRz4XwEAVTgFpky48XV5ES27WgPOGQ3mkqGaBB4Vrop0m8XjS1eiy3079nEWoBGkcRo6kMRueh7m7q64P609INh9nQeDviYxdt2Z7rbRUgmcC6GyCdqbEx0WM%2FQCXQ3Mz%2BB2gd%2FfqKrJJ0ngZkUBOzriOCOhLjz9Bh3bTW3GKj6ES2Iizd%2FQ3%2FVp%2FJzIJayfRz9PgxyH%2BX61ckjhsQj%2FSD3H2rvdPpohfmubuNmRddDoWZm1aT9orFC8WginSuUWPDKAQbsr85Dbkt3Ll0nw4CtUScamJA9DTsIk3XNQ0UZrSiBFhpvXjcU968%2BxBD9ngZkM%2FjZ4vLO81Z3LIfS21SoAIM2wY7Flp0g8EevAguvAPN9nvuxL5kJ%2F3K5tJX6TohSGZXG0m7o1wNEz8vla%2B38ymSmrNIfwuQtVOjGxeDkcP5TD7q6CpBjqwAVNlaWOUiGwhgSw6exPtSQU%2BDySVAOryU9wmL4HczsshgDzweaphFKX4lXAl1nlA6UVhb3syw8hOpXr1J0hMsCNqm7D7CRIaL0cR9G6Rhs0ZN4x6qDirK%2Bv1QXFPdRuJ%2B9pyQtnQzzmw0x%2F3BFidEsXjoCkFJnR8LKk7aD6ruRbD338UzYFnN3SieXNpYNLzJMvOCVxQWknMd3yN3OMDVdgPtAuNZcA4kVwSXz2pv8kD&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20231012T165954Z&X-Amz-SignedHeaders=host&X-Amz-Expires=3600&X-Amz-Credential=ASIA2R2EX7PZF3XARN56%2F20231012%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Signature=d0287a7619749f70967f2cd30b6813c75a1b5e4c1047e02558cdc6705a204fc7"
+\ No newline at end of file

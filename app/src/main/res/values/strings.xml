@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">ExoPlayer Demo</string>
+    <string name="m3u8">https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8</string>
+    <string name="m3u8_two">https://5b44cf20b0388.streamlock.net:8443/vod/smil:bbb.smil/playlist.m3u8</string>
+    <string name="mp4_url">https://storage.googleapis.com/exoplayer-test-media-0/BigBuckBunny_320x180.mp4</string>
+    <string name="mp4_url_two">https://storage.googleapis.com/exoplayer-test-media-1/gen-3/screens/dash-vod-single-segment/video-avc-baseline-480.mp4</string>
+    <string name="tutorix_m3u8">https://cdn.rankguru.com/tutorix/class6/2/5/30/playlist.m3u8</string>
+    <string name="p_without_token">https://il-cms-assets.s3.ap-south-1.amazonaws.com/media/1643292596381.mp4</string>
 </resources>
